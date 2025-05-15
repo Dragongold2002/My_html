@@ -75,6 +75,8 @@ article{
   padding: 6px 24px;
   text-decoration: none;
   text-shadow: 0px 3px 2px deepskyblue;
+  width:65%;
+  text-align: center;
 }
 .mybutton:hover{
   background: linear-gradient(to bottom, cadetblue,lightblue,darkslateblue);
@@ -85,3 +87,7 @@ article{
   position: relative;
   top:2px;
 }
+@media only screen and (max-width:800px) {
+  .mybutton{
+    width:25%;
+  }
