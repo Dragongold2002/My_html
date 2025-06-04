@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Stickman Game</title>
+  <link rel="stylesheet" href="stickbut.css">
+  <style>
+    #stickman-frame {
+      width: 200px;
+      height: 200px;
+      border: 5px solid black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto;
+      transition: background-color 0.3s ease;
+      background-color: white;
+    }
+
+    #stickman {
+      width: 150px;
+    }
+
+    .btn.flash {
+      transform: scale(1.2);
+      box-shadow: 0 0 15px white;
+    }
+  </style>
+</head>
+<body>
+  <div id="game">
+    <div id="stickman-frame">
+      <img id="stickman" src="CCTOCNewIdle.gif" alt="Стікмен">
+    </div>
+
+    <div id="buttons">
+      <button class="btn" data-id="0" style="background-color: red;">A</button>
+      <button class="btn" data-id="1" style="background-color: green;">B</button>
+      <button class="btn" data-id="2" style="background-color: blue;">C</button>
+      <button class="btn" data-id="3" style="background-color: orange;">D</button>
+      <button class="btn" data-id="4" style="background-color: purple;">E</button>
+    </div>
+
+    <div id="level-buttons">
+      <button onclick="startGame(5)">Почати (5 рівнів)</button>
+      <button onclick="startGame(10)">Почати (10 рівнів)</button>
+      <button onclick="startGame(15)">Почати (15 рівнів)</button>
+    </div>
+
+    <div id="message">Натисни кнопку, щоб почати гру</div>
+  </div>
+
+  <script>
+    let sequence = [];
+    let userSequence = [];
+    let level = 0;
+    let maxLevel = 5;
+
+    function startGame(levels) {
+      maxLevel = levels;
+      sequence = [];
+      userSequence = [];
+      level = 0;
+      document.getElementById('message').textContent = "Повтори за Стікменом!";
+      nextRound();
+    }
+
+    function nextRound() {
+      userSequence = [];
+      const next = Math.floor(Math.random() * 5);
+      sequence.push(next);
+      level++;
+      showSequence();
+    }
+
+    function showSequence() {
+      let i = 0;
+      const buttons = document.querySelectorAll(".btn");
+      const frame = document.getElementById("stickman-frame");
+
+      const interval = setInterval(() => {
+        const btn = buttons[sequence[i]];
+
+        // Спершу очистити фон
+        frame.style.backgroundColor = "white";
+
+        setTimeout(() => {
+          frame.style.backgroundColor = btn.style.backgroundColor; // фон кнопки
+          btn.classList.add("flash");
+
+          setTimeout(() => {
+            btn.classList.remove("flash");
+            frame.style.backgroundColor = "white";
+          }, 500);
+        }, 100);
+
+        i++;
+        if (i >= sequence.length) clearInterval(interval);
+      }, 1000);
+    }
+
+    document.querySelectorAll(".btn").forEach(button => {
+      button.addEventListener("click", () => {
+        const id = parseInt(button.getAttribute("data-id"));
+        userSequence.push(id);
+        checkSequence();
+      });
+    });
+
+    function checkSequence() {
+      const currentIndex = userSequence.length - 1;
+      if (userSequence[currentIndex] !== sequence[currentIndex]) {
+        document.getElementById('message').textContent = "❌ Помилка! Почни знову.";
+        return;
+      }
+
+      if (userSequence.length === sequence.length) {
+        if (level === maxLevel) {
+          document.getElementById('message').textContent = "🎉 Ти переміг!";
+        } else {
+          setTimeout(() => nextRound(), 1000);
+        }
+      }
+    }
+  </script>
+</body>
+</html>

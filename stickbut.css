@@ -1,0 +1,83 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  height: 100%;
+  font-family: sans-serif;
+  background-color: #f2f2f2;
+}
+
+#game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+#stickman-frame {
+  width: 180px;
+  height: 180px;
+  border: 6px solid orange;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+}
+
+#stickman {
+  width: 120px;
+}
+
+#buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.flash {
+  box-shadow: 0 0 20px yellow;
+}
+
+#level-buttons button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: goldenrod;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#level-buttons button:hover {
+  background-color: darkorange;
+}
+
+#message {
+  margin-top: 15px;
+  font-size: 18px;
+  color: darkblue;
+}
